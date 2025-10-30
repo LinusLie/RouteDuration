@@ -8,6 +8,9 @@ on:
     - cron: "0 6 * * *"  # 07:00 in winter (UTC+1)
   workflow_dispatch:  # allows manual run
 
+  permissions:
+  contents: write
+
 jobs:
   run-daily-script:
     runs-on: ubuntu-latest
