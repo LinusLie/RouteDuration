@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p logs
           timestamp=$(date -u +"%Y-%m-%d_%H-%M-%S")
-          python path/to/get_routes.py | tee "logs/routes_${timestamp}.log"
+          python scripts/get_routes.py | tee "logs/routes_${timestamp}.log"
 
       - name: Commit and push log file
         run: |
