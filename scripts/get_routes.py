@@ -1,4 +1,5 @@
 import requests
+import os
 
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
 if not API_KEY:
