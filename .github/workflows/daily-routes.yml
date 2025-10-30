@@ -1,1 +1,43 @@
+name: Daily Google Maps Routes
+
+on:
+  schedule:
+    # Berlin 06:00 & 07:00 — adjusted for DST
+    - cron: "0 4 * * *"  # 06:00 in summer (UTC+2)
+    - cron: "0 5 * * *"  # 06:00 or 07:00 depending on DST
+    - cron: "0 6 * * *"  # 07:00 in winter (UTC+1)
+  workflow_dispatch:  # allows manual run
+
+jobs:
+  run-daily-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt || pip install requests
+
+      - name: Run route script and save output
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        run: |
+          mkdir -p logs
+          timestamp=$(date -u +"%Y-%m-%d_%H-%M-%S")
+          python path/to/your_script.py | tee "logs/routes_${timestamp}.log"
+
+      - name: Commit and push log file
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add logs/
+          git commit -m "Add route log for $(date -u +"%Y-%m-%d %H:%M:%S UTC")" || echo "No changes to commit"
+          git push
 
