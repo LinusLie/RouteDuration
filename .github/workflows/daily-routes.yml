@@ -1,20 +1,9 @@
 name: Daily Google Maps Routes
-
-#on:
-#  schedule:
-#    # Berlin 06:00 & 07:00 — adjusted for DST
-#    - cron: "0 4 * * *"  # 06:00 in summer (UTC+2)
-#    - cron: "0 5 * * *"  # 06:00 or 07:00 depending on DST
-#    - cron: "0 6 * * *"  # 07:00 in winter (UTC+1)
-#  workflow_dispatch:  # allows manual run
-
   
 on:
   schedule:
     # Start at 5 minutes from now (19:00 Berlin / 18:00 UTC), repeat every 10 minutes
-    - cron: "0-59/5 17 * * *"
-    - cron: "0-59/5 18 * * *"
-    - cron: "0-59/5 19 * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:  # allows manual run
 
 permissions:
