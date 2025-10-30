@@ -2,8 +2,8 @@ name: Daily Google Maps Routes
   
 on:
   schedule:
-    # Start at 5 minutes from now (19:00 Berlin / 18:00 UTC), repeat every 10 minutes
-    - cron: "*/5 * * * *"
+    - cron: "0-59/10 4-7 * * *"
+  
   workflow_dispatch:  # allows manual run
 
 permissions:
