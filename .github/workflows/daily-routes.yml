@@ -26,13 +26,16 @@ jobs:
         run: |
           pip install -r requirements.txt || pip install requests
 
-      - name: Run route script and save output
+      - name: Run route script and append output
         env:
           GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: |
           mkdir -p logs
-          timestamp=$(date -u +"%Y-%m-%d_%H-%M-%S")
-          python scripts/get_routes.py | tee "logs/routes_${timestamp}.log"
+          # Create header if file doesn't exist
+          if [ ! -f logs/routes.csv ]; then
+            echo "day;time;distance_km;duration_current;duration_static;duration_delay" > logs/routes.csv
+          fi
+          python scripts/get_routes.py >> logs/routes.csv
 
       - name: Commit and push log file
         run: |
