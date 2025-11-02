@@ -2,7 +2,7 @@ name: Daily Google Maps Routes
   
 on:
   schedule:
-    - cron: "0-59/10 4-7 * * *"
+    - cron: "*/6 4-7 * * 1-5"
   
   workflow_dispatch:  # allows manual run
 
